@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "92597903445",
+    "firebase_url": "https://social-reminder-3a03a.firebaseio.com",
+    "project_id": "social-reminder-3a03a",
+    "storage_bucket": "social-reminder-3a03a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92597903445:android:677eb394533349cd",
+        "android_client_info": {
+          "package_name": "com.social_reminder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "92597903445-r2tti6d3ohcgmii7qqdamu5qp5p12o9l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS8NSXGvoUpoBIwtR8_XcHQGEHnz4u-BM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "92597903445-r2tti6d3ohcgmii7qqdamu5qp5p12o9l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
