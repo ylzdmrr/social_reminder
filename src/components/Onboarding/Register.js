@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { register } from '../../actions';
 
 
-import { colors } from '../../style';
+import { colors, fonts } from '../../style';
 
 class Register extends Component {
   state = {
@@ -64,25 +64,44 @@ class Register extends Component {
     return (
       <SafeAreaView
         forceInset={{ bottom: 'never' }}
-        style={{ flex: 1 }}>
+        style={{ flex: 1, backgroundColor: colors.background  }}>
 
-        <View style={{ flex: 1, backgroundColor: '', flexDirection: 'row', alignItems: 'center', padding: 10, justifyContent: 'space-between' }}>
-          <Icon color={colors.main} name={'chevron-left'} size={20} onPress={() => Actions.pop()}/>
-          <Icon color={colors.main} name={'twitter'} size={40} />
-          <View />
+        <View style={{ flex: 1, justifyContent: 'center' }}>
         </View>
 
         { this.props.loading ?
-        <View style={{ flex: 9, justifyContent: 'center' }}>
+        <View style={{ flex: 6, justifyContent: 'center' }}>
           <ActivityIndicator size="large" color={colors.main} />
         </View>
          : 
-         <View style={{ flex: 9, backgroundColor: '' }}>
-         <ScrollView style={{ backgroundColor: '', padding: 20 }}>
-           <Text style={{ fontWeight: 'bold', fontSize: 20, width: '70%', marginBottom: 20, textAlign: 'left', }}>Hesabını Oluştur</Text>
+         <View style={{ flex: 6, backgroundColor: ''}}>
+         <ScrollView style={{ backgroundColor: '', padding: 40 }}>
+           <Text style={{ color: colors.mainpink, fontWeight: fonts.text, fontSize: 24, width: '100%', marginBottom: 40, textAlign: 'center', }}>Hesabını Oluştur</Text>
+           <View style={{ flexDirection: 'row', justifyContent:'space-between', backgroundColor: ''}}>
+            <Input
+              placeholder={'Ad'}
+              rightIcon={'close'}
+              showRightIcon
+              value={this.state.username}
+              onChangeText={(username) => { this.setState({ username }) }}
+              onPressIcon={() => console.log('icona tik')}
+              style={{paddingRight: 15}}
+            />
+            <Text>  </Text>
+            <Input
+              placeholder={'Soyad'}
+              rightIcon={'close'}
+              showRightIcon
+              value={this.state.username}
+              onChangeText={(username) => { this.setState({ username }) }}
+              onPressIcon={() => console.log('icona tik')}
+              style={{paddingLeft: 15}}
+            />
+
+           </View>
 
            <Input
-             placeholder={'kullanıcı adı'}
+             placeholder={'Kullanıcı Adı'}
              rightIcon={'close'}
              showRightIcon
              value={this.state.username}
@@ -91,7 +110,7 @@ class Register extends Component {
            />
 
            <Input
-             placeholder={'e-posta'}
+             placeholder={'E-posta'}
              rightIcon={'close'}
              showRightIcon
              value={this.state.email}
@@ -109,26 +128,23 @@ class Register extends Component {
              onPressIcon={() => console.log('icona tik')}
            />
 
+          <View style={{ flex: 1, justifyContent:'center', alignItems: 'center'}}>
+            <Button
+              title={'Kayıt Ol'}
+              onPress={() => this.props.register(
+                this.state.username,
+                this.state.email,
+                this.state.password
+              )
+              }
+              style={{backgroundColor: colors.mainpink, marginTop: 30}}
+            />
+          </View>
          </ScrollView>
 
        </View>
          }
 
-
-
-        <Animated.View style={[{ flex: 0.6, backgroundColor: '#edeeef', borderTopColor: '#b7b7b7', borderTopWidth: 0.3, alignItems: 'center', padding: 10, alignItems: 'flex-end' }, animatedStyles]}>
-          <Button
-            title={'Kayıt ol'}
-            onPress={() => this.props.register(
-              this.state.username,
-              this.state.email,
-              this.state.password
-            )
-            }
-            style={{ width: '25%', height: 30 }}
-          />
-
-        </Animated.View>
 
       </SafeAreaView>
     );
