@@ -16,6 +16,8 @@ class Register extends Component {
     email: '',
     password: '',
     username: '',
+    name: '',
+    lastname: '',
     animation: new Animated.Value(0)
   }
  
@@ -82,8 +84,8 @@ class Register extends Component {
               placeholder={'Ad'}
               rightIcon={'close'}
               showRightIcon
-              value={this.state.username}
-              onChangeText={(username) => { this.setState({ username }) }}
+              value={this.state.name}
+              onChangeText={(name) => { this.setState({ name }) }}
               onPressIcon={() => console.log('icona tik')}
               style={{paddingRight: 15}}
             />
@@ -92,8 +94,8 @@ class Register extends Component {
               placeholder={'Soyad'}
               rightIcon={'close'}
               showRightIcon
-              value={this.state.username}
-              onChangeText={(username) => { this.setState({ username }) }}
+              value={this.state.lastname}
+              onChangeText={(lastname) => { this.setState({ lastname }) }}
               onPressIcon={() => console.log('icona tik')}
               style={{paddingLeft: 15}}
             />
@@ -132,6 +134,8 @@ class Register extends Component {
             <Button
               title={'Kayıt Ol'}
               onPress={() => this.props.register(
+                this.state.name,
+                this.state.lastname,
                 this.state.username,
                 this.state.email,
                 this.state.password

@@ -102,13 +102,12 @@ class Login extends Component {
             </View>
 
           </ScrollView>
+          <View style ={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+              <Text style={{ color: colors.text, fontSize: 20, fontFamily: fonts.text }} onPress={() => Actions.register()}>Yeni Hesap Oluştur</Text>
+          </View>
         </View>
 
         }
-        <View style ={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Text style={{ color: colors.text, fontSize: 20, fontFamily: fonts.text }} onPress={() => Actions.register()}>Yeni Hesap Oluştur</Text>
-        </View>
-
       </SafeAreaView>
     );
   }

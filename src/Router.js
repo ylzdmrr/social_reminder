@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { View, Text, TouchableHighlight, Dimensions } from 'react-native';
 import { Router, Scene, Tabs, Stack, Drawer, Actions } from 'react-native-router-flux';
 import Home from './components/Home';
 // Onboarding Page
 import Login from './components/Onboarding/Login';
 import Register from './components/Onboarding/Register';
+
+const { width } = Dimensions.get('window');
 
 export default class componentName extends Component {
 
@@ -14,7 +17,7 @@ export default class componentName extends Component {
       titleStyle={styles.titleStyle}
       sceneStyle={{ backgroundColor: 'white' }}
       >
-       <Scene
+        <Scene
           key='Main'
           hideNavBar
           modal
@@ -29,12 +32,23 @@ export default class componentName extends Component {
                 component={Register}
 
               />
-            </Scene>
-            {/* <Scene key="home"
-              title="Anasayfa"
-              component={Home}
-              initial
-              /> */}
+          </Scene>
+          <Drawer
+            key="main"
+            hideNavBar
+            drawerPosition="left"
+            drawerWidth={width / 1.3}
+          >
+            <Tabs key="tabpage" tabBarStyle={styles.tabBar} showLabel={false}>
+
+              <Scene key="home"
+                title="Anasayfa"
+                component={Home}
+                initial
+              />
+             
+            </Tabs>
+          </Drawer>
         </Scene>
       </Router>
         );

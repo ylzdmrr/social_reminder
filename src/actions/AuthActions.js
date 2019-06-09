@@ -51,7 +51,7 @@ export const login = (email, password) => {
         }
     }
 }
-export const register = (username, email, password) => {
+export const register = (name, lastname, username, email, password) => {
     return (dispatch) => {
         if (password.length >= 6) {
             if (validateEmail(email)) {
@@ -65,7 +65,7 @@ export const register = (username, email, password) => {
                         const id = user.user._user.uid;
 
                         // db ye veri yaz
-                        firebase.firestore().collection('users').doc(id).set({ username, email, password }).then(success => {
+                        firebase.firestore().collection('users').doc(id).set({ name, lastname, username, email, password }).then(success => {
                             console.log('Kayıt başarılı: ', success);
                         }).catch(error => {
                             console.log('Kayıt başarısız:', error);
