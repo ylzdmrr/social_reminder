@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { Fab } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
-import { colors } from '../style';
+import { colors,fonts } from '../style';
 
 export default class Home extends Component {
 

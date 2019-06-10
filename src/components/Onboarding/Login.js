@@ -8,8 +8,7 @@ import { Button, Input } from '../Common';
 import { connect } from 'react-redux';
 import { login} from '../../actions';
 
-import { colors } from '../../style';
-import { fonts } from '../../style';
+import { colors,fonts } from '../../style';
 
 
 class Login extends Component {
@@ -60,19 +59,18 @@ class Login extends Component {
     return (
       <SafeAreaView
         forceInset={{ bottom: 'never' }}
-        style={{ flex: 1, backgroundColor: colors.background }}>
+        style={{ flex: 1}}>
         <View style={{ flex: 1, justifyContent: 'center' }}>
         
         </View>
         { this.props.loading ?
         <View style={{ flex: 6, justifyContent: 'center' }}>
-          <ActivityIndicator size="large" color={colors.main} />
+          <ActivityIndicator size="large" color={colors.mainpink} />
         </View>
          : 
         <View style={{flex:6, backgroundColor: ''}}>
           <ScrollView style={{ backgroundColor: '', padding:40 }}>
-            <Text style={{color: colors.mainpink, fontFamily: fonts.maintitle, fontWeight: 'bold', fontSize: 30, width: '100%', textAlign: 'center' }}>SOCIAL</Text>
-            <Text style={{color: colors.mainpink, fontFamily: fonts.maintitle, fontWeight: 'bold', fontSize: 30, width: '100%', marginBottom: 20, textAlign: 'center' }}>REMINDER</Text>
+            <Text style={styles.logoTextStyle}>SOCIAL REMINDER</Text>
 
             <Input
               placeholder={'E-posta'}
@@ -98,12 +96,12 @@ class Login extends Component {
                 onPress={() => this.props.login(this.state.email, this.state.password)}
             />
             <View style ={{alignItems: 'center', justifyContent: 'center'}}>
-                <Text style={{ color: colors.mainpink, fontSize: 18, marginTop: 20 }}>Şifreni mi unuttun?</Text>
+                <Text style={styles.pswTextStyle}>Şifreni mi unuttun?</Text>
             </View>
 
           </ScrollView>
           <View style ={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-              <Text style={{ color: colors.text, fontSize: 20, fontFamily: fonts.text }} onPress={() => Actions.register()}>Yeni Hesap Oluştur</Text>
+              <Text style={styles.newaccountTextStyle} onPress={() => Actions.register()}>Yeni Hesap Oluştur</Text>
           </View>
         </View>
 
@@ -112,6 +110,29 @@ class Login extends Component {
     );
   }
 }
+
+const styles={
+  logoTextStyle:{
+    color: colors.mainpink, 
+    fontFamily: fonts.maintitle,
+    fontSize: 40, 
+    width: '100%', 
+    textAlign: 'center',
+    marginBottom: 40,
+  },
+  pswTextStyle:{
+    color: colors.mainpink, 
+    fontSize: 18, 
+    marginTop: 20,
+    fontFamily: fonts.text,
+  },
+  newaccountTextStyle:{
+    color: colors.text, 
+    fontSize: 20, 
+    fontFamily: fonts.text 
+  }
+}
+
 
 const mapStataToProps = ({ authResponse }) => {
   console.log(authResponse);

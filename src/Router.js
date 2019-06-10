@@ -6,6 +6,10 @@ import Home from './components/Home';
 import Login from './components/Onboarding/Login';
 import Register from './components/Onboarding/Register';
 
+import FirstScreen from './components/Onboarding/FirstScreen';
+
+import { colors } from './style/colors';
+
 const { width } = Dimensions.get('window');
 
 export default class componentName extends Component {
@@ -15,7 +19,7 @@ export default class componentName extends Component {
       <Router
       navigationBarStyle={styles.navBar}
       titleStyle={styles.titleStyle}
-      sceneStyle={{ backgroundColor: 'white' }}
+      sceneStyle={{ backgroundColor: colors.background }}
       >
         <Scene
           key='Main'
@@ -23,6 +27,10 @@ export default class componentName extends Component {
           modal
         >
           <Scene key='onboarding'>
+              <Scene key="firstScreen" 
+                hideNavBar
+                component={FirstScreen}
+              />
               <Scene key="login"
                 hideNavBar
                 component={Login}
@@ -62,12 +70,13 @@ export default class componentName extends Component {
       tabBar: {
         borderTopColor: 'darkgrey',
         borderTopWidth: 0.3,
-        backgroundColor: 'ghostwhite',
+        backgroundColor: colors.background,
       },
-      navigationBarStyle: {
-        backgroundColor: 'red',
+      navBar: {
+        backgroundColor: colors.background,
+        
       },
-      navigationBarTitleStyle: {
-        color: 'white',
+      titleStyle: {
+        color: colors.mainpink,
       },
     };

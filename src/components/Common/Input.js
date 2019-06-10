@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { colors } from '../../style';
+import { colors,fonts } from '../../style';
 
 class Input extends Component {
   state = {
@@ -46,15 +46,9 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: colors.mainblue,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.mainblue,
-    borderLeftWidth: 1,
-    borderLeftColor: colors.mainblue,
-    borderRightWidth: 1,
-    borderRightColor: colors.mainblue,
-    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: colors.mainblue,
+    borderRadius: 5,
     height: 50,
     width: '100%',
     marginBottom: 15,
@@ -65,12 +59,10 @@ const styles = {
   },
   input: {
     flex: 1,
-    paddingTop: 5,
-    paddingRight: 5,
-    paddingBottom: 5,
-    paddingLeft: 5,
+    padding:5,
     backgroundColor: '#fff',
     color: '#424242',
+    fontFamily: fonts.text
   },
 }
 
