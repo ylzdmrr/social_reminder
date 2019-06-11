@@ -10,17 +10,17 @@ import {login} from '../../actions';
 
 class FirstScreen extends Component {
     async componentWillMount(){
-        // AsyncStorage.getItem(LOGIN_INFO_LOCAL)
-        // .then(req=>JSON.parse(req))
-        // .then(json=>{
-        //     console.log('Login olan kullanıcı: ',json);
-        //     if(json!==null){
-        //         this.props.login(json.email,json.password)
-        //     }
-        //     else {
+        AsyncStorage.getItem(LOGIN_INFO_LOCAL)
+        .then(req=>JSON.parse(req))
+        .then(json=>{
+            console.log('Login olan kullanıcı: ',json);
+            if(json!==null){
+                this.props.login(json.email,json.password)
+            }
+            else {
 
-        //     }
-        // }).done();
+            }
+        }).done();
     }
     render(){
         if(this.props.loading){
