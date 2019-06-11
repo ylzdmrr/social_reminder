@@ -11,6 +11,7 @@ import Register from './components/Onboarding/Register';
 
 // In Page
 import Home from './components/Home';
+import Profile from './components/Profile';
 
 // Menu
 import DrawerMenu from './components/DrawerMenu';
@@ -62,6 +63,10 @@ export default class componentName extends Component {
               title='ANASAYFA'
               component={Home}
               initial
+            />
+            <Scene key='profile'
+              title='PROFİL'
+              component={Profile}
             />
           </Drawer>
           
