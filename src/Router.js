@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableHighlight, Dimensions } from 'react-native';
 import { Router, Scene, Tabs, Stack, Drawer, Actions } from 'react-native-router-flux';
-import Home from './components/Home';
+import StackViewStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator';
+import { colors,fonts } from './style';
+
 // Onboarding Page
+import FirstScreen from './components/Onboarding/FirstScreen';
 import Login from './components/Onboarding/Login';
 import Register from './components/Onboarding/Register';
 
+// In Page
+import Home from './components/Home';
+
+// Menu
+import DrawerMenu from './components/DrawerMenu';
+
 const { width } = Dimensions.get('window');
+
 
 export default class componentName extends Component {
 
@@ -15,14 +25,22 @@ export default class componentName extends Component {
       <Router
       navigationBarStyle={styles.navBar}
       titleStyle={styles.titleStyle}
-      sceneStyle={{ backgroundColor: 'white' }}
+      sceneStyle={{ backgroundColor: colors.background }}
       >
-        <Scene
+        <Stack
           key='Main'
           hideNavBar
+          transitionConfig={(data)=>{
+            screenInterpolator: StackViewStyleInterpolator.forHorizontal
+          }}
           modal
         >
-          <Scene key='onboarding'>
+          <Scene key='onboarding' modal={false}>
+              <Scene key="firstScreen" 
+                hideNavBar
+                component={FirstScreen}
+                initial
+              />
               <Scene key="login"
                 hideNavBar
                 component={Login}
@@ -36,20 +54,18 @@ export default class componentName extends Component {
           <Drawer
             key="main"
             hideNavBar
+            contentComponent={DrawerMenu}
             drawerPosition="left"
-            drawerWidth={width / 1.3}
+            drawerWidth={width / 1.5}
           >
-            <Tabs key="tabpage" tabBarStyle={styles.tabBar} showLabel={false}>
-
-              <Scene key="home"
-                title="Anasayfa"
-                component={Home}
-                initial
-              />
-             
-            </Tabs>
+            <Scene key='home'
+              title='ANASAYFA'
+              component={Home}
+              initial
+            />
           </Drawer>
-        </Scene>
+          
+        </Stack>
       </Router>
         );
       }
@@ -59,15 +75,12 @@ export default class componentName extends Component {
       container: {
         flex: 1,
       },
-      tabBar: {
-        borderTopColor: 'darkgrey',
-        borderTopWidth: 0.3,
-        backgroundColor: 'ghostwhite',
+      navBar: {
+        backgroundColor: colors.background,
+        
       },
-      navigationBarStyle: {
-        backgroundColor: 'red',
-      },
-      navigationBarTitleStyle: {
-        color: 'white',
+      titleStyle: {
+        color: colors.mainpink,
+        fontFamily: fonts.text,
       },
     };

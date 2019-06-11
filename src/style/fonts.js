@@ -1,4 +1,4 @@
 export const fonts = {
-    maintitle: 'Gugi',
-    text: 'Abel'
+    maintitle: 'Gugi-Regular',
+    text: 'ArchivoNarrow-Regular'
 };

@@ -66,19 +66,20 @@ class Register extends Component {
     return (
       <SafeAreaView
         forceInset={{ bottom: 'never' }}
-        style={{ flex: 1, backgroundColor: colors.background  }}>
+        style={{ flex: 1 }}>
 
         <View style={{ flex: 1, justifyContent: 'center' }}>
         </View>
 
         { this.props.loading ?
         <View style={{ flex: 6, justifyContent: 'center' }}>
-          <ActivityIndicator size="large" color={colors.main} />
+          <ActivityIndicator size="large" color={colors.mainpink} />
         </View>
          : 
          <View style={{ flex: 6, backgroundColor: ''}}>
          <ScrollView style={{ backgroundColor: '', padding: 40 }}>
-           <Text style={{ color: colors.mainpink, fontWeight: fonts.text, fontSize: 24, width: '100%', marginBottom: 40, textAlign: 'center', }}>Hesabını Oluştur</Text>
+           <Text style={styles.titleStyle}>Hesabını Oluştur</Text>
+           
            <View style={{ flexDirection: 'row', justifyContent:'space-between', backgroundColor: ''}}>
             <Input
               placeholder={'Ad'}
@@ -152,6 +153,17 @@ class Register extends Component {
 
       </SafeAreaView>
     );
+  }
+}
+
+const styles={
+  titleStyle:{
+    color: colors.mainpink, 
+    fontFamily: fonts.text, 
+    fontSize: 24, 
+    width: '100%', 
+    marginBottom: 40, 
+    textAlign: 'center'
   }
 }
 
