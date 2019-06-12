@@ -7,9 +7,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "lodash": "^4.17.11",
     "native-base": "^2.12.1",
     "react": "16.8.3",
     "react-native": "0.59.8",
+    "react-native-contacts": "^4.0.2",
     "react-native-firebase": "^5.4.2",
     "react-native-image-picker": "^0.28.1",
     "react-native-router-flux": "^4.0.6",
@@ -28,8 +30,8 @@
   "jest": {
     "preset": "react-native"
   },
-  "rnpm":{
-    "assets":[
+  "rnpm": {
+    "assets": [
       "./src/style/customFonts/"
     ]
   }

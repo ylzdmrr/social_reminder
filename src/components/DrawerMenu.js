@@ -31,7 +31,7 @@ class DrawerMenu extends Component {
     sections(icon, name, onPress) {
         return (
             <View style={{ flexDirection: 'row', backgroundColor: '', alignItems: 'center', marginBottom: 20 }}>
-                {icon != null ? <Icon name={icon} size={15} style={{width:40, color:colors.mainblue}} type='FontAwesome' /> : null}
+                {icon != null ? <Icon name={icon}  style={{width:30,fontSize:22, textAlign:'center', color:colors.mainblue}} type='FontAwesome' /> : null}
                 <Text onPress={onPress} style={{ fontSize: 14, marginLeft: 20,color:colors.mainblue, fontFamily:fonts.text }}>{name}</Text>
             </View>
         )

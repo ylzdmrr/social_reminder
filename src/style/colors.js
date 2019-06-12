@@ -5,5 +5,6 @@ export const colors = {
     background: '#F7F7F7',
     placeholder: '#C9C6C7',
     text: '#8a8989',
-    shadow: '#646464'
+    shadow: '#646464',
+    reminder:'#7B64D6'
 };
