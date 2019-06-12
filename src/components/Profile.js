@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Image, Datepic } from 'react-native';
-import { Fab, Row } from 'native-base';
+import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { Fab, Row, DatePicker } from 'native-base';
 import {Icon} from 'native-base';
 import ImagePicker from 'react-native-image-picker';
 import {connect} from 'react-redux';
@@ -125,7 +125,7 @@ render() {
              onPressIcon={() => console.log('icona tik')}
            />
 
-           <InputProfile
+           {/* <InputProfile
              placeholder={'Doğum Tarihi'}
              rightIcon={'close'}
              secureTextEntry
@@ -133,34 +133,64 @@ render() {
              value={this.state.birthday}
              onChangeText={(birthday) => { this.setState({ birthday }) }}
              onPressIcon={() => console.log('icona tik')}
-           />
+           /> */}
 
-            <InputProfile
-             placeholder={'Telefon'}
-             rightIcon={'close'}
-             secureTextEntry
-             showRightIcon={false}
-             value={this.state.phone}
-             onChangeText={(phone) => { this.setState({ phone }) }}
-             onPressIcon={() => console.log('icona tik')}
-           />
+          <View 
+            style={{borderBottomWidth: 1,
+            borderBottomColor: colors.mainpink,
+            height: 50,
+            width: '100%',
+            marginBottom: 10, flex: 1,
+            padding:5,
+            backgroundColor: '#fff',
+            color: '#424242',
+            fontFamily: fonts.text}}>
 
-            <View style={{ flex: 1, justifyContent:'center', alignItems: 'center', paddingRight:60, paddingLeft:60 }}>
-                <Button
-                title={'Güncelle'}
-                onPress={() => this.props.register(
-                    this.state.name,
-                    this.state.lastname,
-                    this.state.username,
-                    this.state.email,
-                    this.state.phone,
-                    this.state.birthday
-                )
-                }
-                style={{backgroundColor: colors.mainblue, marginTop: 20}}
-                />
-            </View>
-         </ScrollView>
+            <DatePicker
+              defaultDate={Date.now()}
+              minimumDate={new Date(2018, 1, 1)}
+              maximumDate={new Date(2018, 12, 31)}
+              locale={"tr"}
+              timeZoneOffsetInMinutes={undefined}
+              modalTransparent={false}
+              animationType={"fade"}
+              androidMode={"default"}
+              placeHolderText="Doğum Tarihi"
+              textStyle={{  color: '#424242',
+                            fontFamily: fonts.text, fontSize:14,marginLeft:-10 }}
+              placeHolderTextStyle={{ color: colors.text, fontSize: 12,marginLeft:-10} }
+              onDateChange={(birthday) => { this.setState({ birthday }) }}
+              disabled={false}
+              value={this.state.birthday}
+              />
+          </View>
+
+          <InputProfile
+            placeholder={'Telefon'}
+            rightIcon={'close'}
+            secureTextEntry
+            showRightIcon={false}
+            value={this.state.phone}
+            onChangeText={(phone) => { this.setState({ phone }) }}
+            onPressIcon={() => console.log('icona tik')}
+          />
+
+          <View style={{ flex: 1, justifyContent:'center', alignItems: 'center', paddingRight:60, paddingLeft:60 }}>
+              <Button
+              title={'Kaydet'}
+              onPress={() => this.props.register(
+                  this.state.name,
+                  this.state.lastname,
+                  this.state.username,
+                  this.state.email,
+                  this.state.phone,
+                  this.state.birthday
+              )
+              }
+              style={{backgroundColor: colors.mainblue, marginTop: 20}}
+              />
+          </View>
+        </ScrollView>
 
     );
   }
