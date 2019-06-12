@@ -23,7 +23,7 @@ export default class Home extends Component {
             containerStyle={{ }}
             style={{ backgroundColor: colors.mainblue }}
             position="bottomRight"
-            onPress={() =>  Actions.addtweet()}>
+            onPress={() =>  Actions.contacts({type:'reset'})}>
             <Icon name="plus" />
           </Fab>
       </View>

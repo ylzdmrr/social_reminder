@@ -12,6 +12,7 @@ import Register from './components/Onboarding/Register';
 // In Page
 import Home from './components/Home';
 import Profile from './components/Profile';
+import ContactsList from './components/ContactsList';
 
 // Menu
 import DrawerMenu from './components/DrawerMenu';
@@ -69,7 +70,14 @@ export default class componentName extends Component {
               component={Profile}
             />
           </Drawer>
+
           
+          <Scene key='contacts'
+              title='KİŞİLER'
+              component={ContactsList}
+              hideNavBar={false}
+          />
+
         </Stack>
       </Router>
         );
