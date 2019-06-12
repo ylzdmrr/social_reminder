@@ -15,7 +15,6 @@ class Profile extends Component {
 
   state = {
     avatarSource:'',
-    defaultImage:'',
     name: '',
     lastname: '',
     username: '',
@@ -60,9 +59,8 @@ class Profile extends Component {
 
 componentDidMount(){
   console.log('Profile gelen props degerlerim: ',this.props);
-  const {defaultImage_url,profile_url,username,name,lastname}=this.props.user_data;
+  const {profile_url,username,name,lastname}=this.props.user_data;
   this.setState({
-      defaultImage: defaultImage_url,
       avatarSource:profile_url,
       userName:username,
       name:name,
@@ -70,33 +68,24 @@ componentDidMount(){
   });
 }
 render() {
-    // const ref = firebase.storage().ref('profiles/defaultImage.jpg');
-    // const url = ref.getDownloadUrl();
-    // console.log('Gelen image bilgisi', ref)
-
     return (
     
         <ScrollView style={{ backgroundColor: '', padding: 40 }}>
             <View style={{ flexDirection:"row", justifyContent:"center", alignItems:"center" }}>
             {
                 this.state.avatarSource !== '' ?
-                    <TouchableOpacity
-                        onPress={() => this.selectPhoto()}
-                    >
+                    <TouchableOpacity onPress={() => this.selectPhoto()} >
                         <Image
                             source={{ uri: this.state.avatarSource }}
-                            style={{ width: 100, height: 100, borderRadius: 50, borderWidth: 1 }}
+                            style={{ width: 100, height: 100, borderRadius: 50, borderWidth: 1, marginBottom:10 }}
                         />
                     </TouchableOpacity> 
                     :
-                <TouchableOpacity
-                onPress={() => this.selectPhoto()}
-                >
-                        <Image
-                        
-                        source={{ uri: this.state.defaultImage  }}
-                        style={{ width: 100, height: 100, borderRadius: 50, borderWidth: 1 }}
-                        />
+                    <TouchableOpacity onPress={() => this.selectPhoto()}>
+                          <Image
+                            source={require('../images/1-DefaultImage.jpg')}
+                            style={{ width: 100, height: 100, borderRadius: 50, borderWidth: 1, marginBottom:10 }}
+                            />
                     </TouchableOpacity>
             }
             </View>

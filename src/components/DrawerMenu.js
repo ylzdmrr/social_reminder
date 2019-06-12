@@ -11,7 +11,6 @@ import firebase from 'react-native-firebase';
 
 class DrawerMenu extends Component {
     state={
-        defaultImage:'',
         avatarSource:'',
         userName:'',
         name:'',
@@ -19,9 +18,8 @@ class DrawerMenu extends Component {
     }
     componentDidMount(){
         console.log('Menuye gelen props degerlerim: ',this.props);
-        const {defaultImage_url, profile_url,username,name,lastname}=this.props.user_data;
+        const {profile_url,username,name,lastname}=this.props.user_data;
         this.setState({
-            defaultImage:defaultImage_url,
             avatarSource:profile_url,
             userName:username,
             name:name,
@@ -83,22 +81,19 @@ class DrawerMenu extends Component {
                     <View>
                          {
                             this.state.avatarSource !== '' ?
-                                <TouchableOpacity
-                                    onPress={() => this.selectPhoto()}
-                                >
-                                    <Image
-                                        source={{ uri: this.state.avatarSource }}
-                                        style={{ width: 100, height: 100, borderRadius: 50, borderWidth: 1 }}
-                                    /></TouchableOpacity> :
-                                    <TouchableOpacity
-                                    onPress={() => this.selectPhoto()}
-                                    >
-                                            <Image
-                                            
-                                            source={{ uri: this.state.defaultImage  }}
-                                            style={{ width: 100, height: 100, borderRadius: 50, borderWidth: 1 }}
-                                            />
-                                        </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.selectPhoto()} >
+                                <Image
+                                    source={{ uri: this.state.avatarSource }}
+                                    style={{ width: 80, height: 80, borderRadius: 40, borderWidth: 1 }}
+                                />
+                            </TouchableOpacity> 
+                            :
+                            <TouchableOpacity onPress={() => this.selectPhoto()}>
+                                <Image
+                                    source={require('../images/1-DefaultImage.jpg')}
+                                    style={{ width: 80, height: 80, borderRadius: 40, borderWidth: 1 }}
+                                    />
+                            </TouchableOpacity>
                         }
                     </View>
                         <Text style={styles.textStyle}>@{this.state.userName}</Text>
