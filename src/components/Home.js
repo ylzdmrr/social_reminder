@@ -21,10 +21,10 @@ export default class Home extends Component {
             active={this.state.active}
             direction="up"
             containerStyle={{ }}
-            style={{ backgroundColor: colors.main }}
+            style={{ backgroundColor: colors.mainblue }}
             position="bottomRight"
             onPress={() =>  Actions.addtweet()}>
-            <Icon name="pencil" />
+            <Icon name="plus" />
           </Fab>
       </View>
     );

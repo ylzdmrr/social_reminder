@@ -14,7 +14,7 @@ class Button extends Component {
 
 const styles = {
   container: { 
-    height: 50, 
+    height: 45, 
     width: '100%', 
     borderRadius: 5, 
     backgroundColor: colors.mainblue, 
@@ -23,7 +23,7 @@ const styles = {
   },
   text: { 
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: fonts.text,
   }
 }
