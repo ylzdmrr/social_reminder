@@ -3,15 +3,19 @@ import { View, Text, ScrollView, TouchableOpacity, Image, Datepic } from 'react-
 import { Fab, Row } from 'native-base';
 import {Icon} from 'native-base';
 import ImagePicker from 'react-native-image-picker';
+import {connect} from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { colors,fonts } from '../style';
 import {Input} from '../components/Common/Input'
 import {Button} from '../components/Common/Button'
 import { InputProfile } from './Common/InputProfile';
+import { firestore,firebase } from 'react-native-firebase';
 
-export default class Profile extends Component {
+class Profile extends Component {
 
   state = {
+    avatarSource:'',
+    defaultImage:'',
     name: '',
     lastname: '',
     username: '',
@@ -53,21 +57,47 @@ export default class Profile extends Component {
         }
     });
 }
-  render() {
+
+componentDidMount(){
+  console.log('Profile gelen props degerlerim: ',this.props);
+  const {defaultImage_url,profile_url,username,name,lastname}=this.props.user_data;
+  this.setState({
+      defaultImage: defaultImage_url,
+      avatarSource:profile_url,
+      userName:username,
+      name:name,
+      lastName:lastname
+  });
+}
+render() {
+    // const ref = firebase.storage().ref('profiles/defaultImage.jpg');
+    // const url = ref.getDownloadUrl();
+    // console.log('Gelen image bilgisi', ref)
+
     return (
     
         <ScrollView style={{ backgroundColor: '', padding: 40 }}>
             <View style={{ flexDirection:"row", justifyContent:"center", alignItems:"center" }}>
             {
                 this.state.avatarSource !== '' ?
+                    <TouchableOpacity
+                        onPress={() => this.selectPhoto()}
+                    >
+                        <Image
+                            source={{ uri: this.state.avatarSource }}
+                            style={{ width: 100, height: 100, borderRadius: 50, borderWidth: 1 }}
+                        />
+                    </TouchableOpacity> 
+                    :
                 <TouchableOpacity
-                    onPress={() => this.selectPhoto()}
+                onPress={() => this.selectPhoto()}
                 >
-                    <Image
-                        source={{ uri: this.state.avatarSource }}
+                        <Image
+                        
+                        source={{ uri: this.state.defaultImage  }}
                         style={{ width: 100, height: 100, borderRadius: 50, borderWidth: 1 }}
-                    /></TouchableOpacity> :
-                <Icon name={'user'} size={40} type='FontAwesome' style={{borderWidth: 1}} onPress={() => this.selectPhoto()} />
+                        />
+                    </TouchableOpacity>
             }
             </View>
            
@@ -126,7 +156,7 @@ export default class Profile extends Component {
              onPressIcon={() => console.log('icona tik')}
            />
 
-            <View style={{ flex: 1, justifyContent:'center', alignItems: 'center'}}>
+            <View style={{ flex: 1, justifyContent:'center', alignItems: 'center', paddingRight:60, paddingLeft:60 }}>
                 <Button
                 title={'Güncelle'}
                 onPress={() => this.props.register(
@@ -146,3 +176,8 @@ export default class Profile extends Component {
     );
   }
 }
+const mapStateToProps = ({ authResponse }) => {
+  return { user_data: authResponse.user }
+}
+
+export default connect(mapStateToProps)(Profile)

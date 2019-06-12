@@ -11,6 +11,7 @@ import firebase from 'react-native-firebase';
 
 class DrawerMenu extends Component {
     state={
+        defaultImage:'',
         avatarSource:'',
         userName:'',
         name:'',
@@ -18,8 +19,9 @@ class DrawerMenu extends Component {
     }
     componentDidMount(){
         console.log('Menuye gelen props degerlerim: ',this.props);
-        const {profile_url,username,name,lastname}=this.props.user_data;
+        const {defaultImage_url, profile_url,username,name,lastname}=this.props.user_data;
         this.setState({
+            defaultImage:defaultImage_url,
             avatarSource:profile_url,
             userName:username,
             name:name,
@@ -88,7 +90,15 @@ class DrawerMenu extends Component {
                                         source={{ uri: this.state.avatarSource }}
                                         style={{ width: 100, height: 100, borderRadius: 50, borderWidth: 1 }}
                                     /></TouchableOpacity> :
-                                <Icon name={'user-circle'} size={40} type='FontAwesome' style={{borderWidth: 1}} onPress={() => this.selectPhoto()} />
+                                    <TouchableOpacity
+                                    onPress={() => this.selectPhoto()}
+                                    >
+                                            <Image
+                                            
+                                            source={{ uri: this.state.defaultImage  }}
+                                            style={{ width: 100, height: 100, borderRadius: 50, borderWidth: 1 }}
+                                            />
+                                        </TouchableOpacity>
                         }
                     </View>
                         <Text style={styles.textStyle}>@{this.state.userName}</Text>
