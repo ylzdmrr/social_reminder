@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Image, Datepic } from 'react-native';
-import { Fab, Row } from 'native-base';
-import {Icon} from 'native-base';
+import { AsyncStorage,View, Text, ScrollView, TouchableOpacity, Image, Datepic } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import {connect} from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { colors,fonts } from '../style';
-import {Input} from '../components/Common/Input'
 import {Button} from '../components/Common/Button'
 import { InputProfile } from './Common/InputProfile';
 import { firestore,firebase } from 'react-native-firebase';
@@ -23,6 +20,31 @@ class Profile extends Component {
     phone: '',
     birthday: ''
   }
+  componentWillMount() {
+    AsyncStorage.getItem('selectContact')
+    .then(req=>JSON.parse(req))
+    .then(json=>{
+        console.log('Gelen item: ',json);
+        if(json!==null){
+           const {givenName,middleName,familyName,thumbnailPath,phoneNumbers,emailAddresses}=json;
+           const number = phoneNumbers.map((val, key) => { if (key === 0) return val.number });
+           const email = emailAddresses.map((val, key) => { if (key === 0) return val.email });
+           const givenname=givenName===null ? '' : givenName;
+           const middlename=middleName===null ? '' : middleName;
+           const familyname=familyName===null ? '' : familyName;
+           this.setState({
+              avatarSource:thumbnailPath,
+              name:givenname+' '+middlename,
+              lastname:familyname,
+              email:email.toString(),
+              phone:number.toString().substring(0,number.toString().length-1)
+           });
+        }
+        else {
+
+        }
+    }).done();
+}
   selectPhoto() {
     const options = {
         title: 'Profil Fotoğrafı Seçiniz',
@@ -30,7 +52,6 @@ class Profile extends Component {
         takePhotoButtonTitle: 'Resim Çek',
         chooseFromLibraryButtonTitle: 'Galeriden Seç',
         cancelButtonTitle: 'Kapat',
-        // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
         storageOptions: {
             skipBackup: true,
             path: 'images',
@@ -59,15 +80,15 @@ class Profile extends Component {
 }
 
 componentDidMount(){
-  console.log('Profile gelen props degerlerim: ',this.props);
-  const {defaultImage_url,profile_url,username,name,lastname}=this.props.user_data;
-  this.setState({
-      defaultImage: defaultImage_url,
-      avatarSource:profile_url,
-      userName:username,
-      name:name,
-      lastName:lastname
-  });
+  // console.log('Profile gelen props degerlerim: ',this.props);
+  // const {defaultImage_url,profile_url,username,name,lastname}=this.props.user_data;
+  // this.setState({
+  //     defaultImage: defaultImage_url,
+  //     avatarSource:profile_url,
+  //     userName:username,
+  //     name:name,
+  //     lastName:lastname
+  // });
 }
 render() {
     // const ref = firebase.storage().ref('profiles/defaultImage.jpg');
@@ -149,7 +170,6 @@ render() {
             <InputProfile
              placeholder={'Telefon'}
              rightIcon={'close'}
-             secureTextEntry
              showRightIcon={false}
              value={this.state.phone}
              onChangeText={(phone) => { this.setState({ phone }) }}
