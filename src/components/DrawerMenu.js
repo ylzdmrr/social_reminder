@@ -5,7 +5,7 @@ import ImagePicker from 'react-native-image-picker';
 import {connect} from 'react-redux';
 import {Icon} from 'native-base';
 import {colors,fonts} from '../style';
-import {profileImageUpload,logout} from '../actions';  // Actions oluşturulacak
+import {profileImageUpload,logout} from '../actions';  
 import {Actions} from 'react-native-router-flux';
 import firebase from 'react-native-firebase';
 
@@ -41,7 +41,6 @@ class DrawerMenu extends Component {
             takePhotoButtonTitle: 'Resim Çek',
             chooseFromLibraryButtonTitle: 'Galeriden Seç',
             cancelButtonTitle: 'Kapat',
-            // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
             storageOptions: {
                 skipBackup: true,
                 path: 'images',
