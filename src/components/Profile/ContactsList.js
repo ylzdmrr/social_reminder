@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Platform, FlatList,PermissionsAndroid} from 'react-native';
 import Contacts from 'react-native-contacts';
-import Item from '../components/Common/Item';
+import Item from './Item';
 
 export default class App extends Component {
     constructor(props) {
@@ -43,8 +43,7 @@ export default class App extends Component {
             style={{ width: '100%'}}
             data={this.state.contacts.sort((a, b) => a.givenName.localeCompare(b.givenName))}
             renderItem={({item, index}) => <Item 
-                        data={item}
-                        index={index}
+                        dataContact={item}
                         />}
             keyExtractor={(item, index) => index.toString()}
           />

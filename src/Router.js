@@ -11,8 +11,8 @@ import Register from './components/Onboarding/Register';
 
 // In Page
 import Home from './components/Home';
-import Profile from './components/Profile';
-import ContactsList from './components/ContactsList';
+import Profile from './components/Profile/Profile';
+import ContactsList from './components/Profile/ContactsList';
 
 // Menu
 import DrawerMenu from './components/DrawerMenu';

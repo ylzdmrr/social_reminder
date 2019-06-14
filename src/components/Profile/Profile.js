@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { Fab, Row, DatePicker } from 'native-base';
-import {Icon} from 'native-base';
+import {  DatePicker } from 'native-base';
 import { AsyncStorage,View, Text, ScrollView, TouchableOpacity, Image, Datepic } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import {connect} from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { colors,fonts } from '../style';
-import {Button} from '../components/Common/Button'
-import { InputProfile } from './Common/InputProfile';
+import { colors,fonts } from '../../style';
+import {Button} from '../Common/Button'
+import { InputProfile } from '../Common/InputProfile';
 import { firestore,firebase } from 'react-native-firebase';
+import moment from 'moment';
+
+import { addcontact,getcontact } from '../../actions';
+
 
 class Profile extends Component {
 
@@ -16,16 +19,15 @@ class Profile extends Component {
     avatarSource:'',
     name: '',
     lastname: '',
-    username: '',
     email: '',
     phone: '',
-    birthday: ''
+    birthday: '',
+    item:{}
   }
   componentWillMount() {
     AsyncStorage.getItem('selectContact')
     .then(req=>JSON.parse(req))
     .then(json=>{
-        console.log('Gelen item: ',json);
         if(json!==null){
            const {givenName,middleName,familyName,thumbnailPath,phoneNumbers,emailAddresses}=json;
            const number = phoneNumbers.map((val, key) => { if (key === 0) return val.number });
@@ -33,16 +35,34 @@ class Profile extends Component {
            const givenname=givenName===null ? '' : givenName;
            const middlename=middleName===null ? '' : middleName;
            const familyname=familyName===null ? '' : familyName;
-           this.setState({
+
+           
+            this.setState({
               avatarSource:thumbnailPath,
               name:givenname+' '+middlename,
               lastname:familyname,
               email:email.toString(),
               phone:number.toString().substring(0,number.toString().length-1)
-           });
-        }
+            });
+          }
+        
         else {
-
+          //console.log(this.props.data.birthday.seconds);
+          // var t = new Date();
+          // t.setSeconds( this.props.data.birthday.seconds );
+          // var formatted = t.toISOString();
+          //const formatted = moment.unix(this.props.data.birthday.seconds);
+          //console.log(formatted._d);
+          
+          const {uid,name,lastname,email,phone,birthday}=this.props.data;
+          this.setState({
+            name:name,
+            lastname:lastname,
+            email:email,
+            phone:phone,
+            birthday:birthday
+         });
+         
         }
     }).done();
 }
@@ -80,16 +100,6 @@ class Profile extends Component {
     });
 }
 
-componentDidMount(){
-  console.log('Profile gelen props degerlerim: ',this.props);
-  const {profile_url,username,name,lastname}=this.props.user_data;
-  this.setState({
-      avatarSource:profile_url,
-      userName:username,
-      name:name,
-      lastName:lastname
-  });
-}
 render() {
     return (
     
@@ -106,7 +116,7 @@ render() {
                     :
                     <TouchableOpacity onPress={() => this.selectPhoto()}>
                           <Image
-                            source={require('../images/1-DefaultImage.jpg')}
+                            source={require('../../images/1-DefaultImage.jpg')}
                             style={{ width: 100, height: 100, borderRadius: 50, borderWidth: 1, marginBottom:10 }}
                             />
                     </TouchableOpacity>
@@ -130,12 +140,13 @@ render() {
               onPressIcon={() => console.log('icona tik')}
             />
 
-           <InputProfile
-             placeholder={'Kullanıcı Adı'}
+            
+          <InputProfile
+             placeholder={'Telefon'}
              rightIcon={'close'}
-             showRightIcon
-             value={this.state.username}
-             onChangeText={(username) => { this.setState({ username }) }}
+             showRightIcon={false}
+             value={this.state.phone}
+             onChangeText={(phone) => { this.setState({ phone }) }}
              onPressIcon={() => console.log('icona tik')}
            />
 
@@ -148,16 +159,7 @@ render() {
              onPressIcon={() => console.log('icona tik')}
            />
 
-           {/* <InputProfile
-             placeholder={'Doğum Tarihi'}
-             rightIcon={'close'}
-             secureTextEntry
-             showRightIcon={false}
-             value={this.state.birthday}
-             onChangeText={(birthday) => { this.setState({ birthday }) }}
-             onPressIcon={() => console.log('icona tik')}
-           /> */}
-            <View 
+          <View 
             style={{borderBottomWidth: 1,
             borderBottomColor: colors.mainpink,
             height: 50,
@@ -168,46 +170,36 @@ render() {
             color: '#424242',
             fontFamily: fonts.text}}>
             
-            <DatePicker
-              defaultDate={Date.now()}
-              minimumDate={new Date(2018, 1, 1)}
-              maximumDate={new Date(2018, 12, 31)}
-              locale={"tr"}
-              timeZoneOffsetInMinutes={undefined}
-              modalTransparent={false}
-              animationType={"fade"}
-              androidMode={"default"}
-              placeHolderText="Doğum Tarihi"
-              textStyle={{  color: '#424242',
-                            fontFamily: fonts.text, fontSize:14,marginLeft:-10 }}
-              placeHolderTextStyle={{ color: colors.text, fontSize: 12,marginLeft:-10} }
-              onDateChange={(birthday) => { this.setState({ birthday }) }}
-              disabled={false}
-              value={this.state.birthday}
+              <DatePicker
+                defaultDate={Date.now()}
+                minimumDate={new Date(2019, 1, 1)}
+                maximumDate={new Date(2019, 12, 31)}
+                locale={"tr"}
+                timeZoneOffsetInMinutes={undefined}
+                modalTransparent={false}
+                animationType={"fade"}
+                androidMode={"default"}
+                placeHolderText="Doğum Tarihi"
+                textStyle={{  color: '#424242',fontFamily: fonts.text, fontSize:14,marginLeft:-10 }}
+                placeHolderTextStyle={{ color: colors.text, fontSize: 12,marginLeft:-10} }
+                onDateChange={(birthday) => { this.setState({  birthday });
+              console.log('bithday:' ,this.state.birthday);
+               }}
+                disabled={false}
+                value={this.state.birthday}
               />
           </View>
 
-          <InputProfile
-             placeholder={'Telefon'}
-             rightIcon={'close'}
-             showRightIcon={false}
-             value={this.state.phone}
-             onChangeText={(phone) => { this.setState({ phone }) }}
-             onPressIcon={() => console.log('icona tik')}
-           />
-
-
           <View style={{ flex: 1, justifyContent:'center', alignItems: 'center', paddingRight:60, paddingLeft:60 }}>
               <Button
-              title={'Kaydet'}
-              onPress={() => this.props.register(
-                  this.state.name,
-                  this.state.lastname,
-                  this.state.username,
-                  this.state.email,
-                  this.state.phone,
-                  this.state.birthday
-              )
+              title={this.props.isAdd===false? 'Kaydet': 'Güncelle'}
+              onPress={() => this.props.addcontact({
+                  name:this.state.name,
+                  lastname:this.state.lastname,
+                  email:this.state.email,
+                  phone:this.state.phone,
+                  birthday:this.state.birthday
+              })
               }
               style={{backgroundColor: colors.mainblue, marginTop: 20}}
               />
@@ -217,8 +209,8 @@ render() {
     );
   }
 }
-const mapStateToProps = ({ authResponse }) => {
-  return { user_data: authResponse.user }
+const mapStateToProps = ({ contactsResponse }) => {
+  return { data: contactsResponse.contacts, isAdd:contactsResponse.isAdd}
 }
 
-export default connect(mapStateToProps)(Profile)
+export default connect(mapStateToProps,{addcontact,getcontact})(Profile)
