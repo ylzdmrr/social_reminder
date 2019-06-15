@@ -30,7 +30,7 @@ class Home extends Component {
         <FlatList
           style={{ flex: 1 }}
           data={this.props.data}
-          keyExtractor={(item, index) => index.toString()}
+          //keyExtractor={(item, index) => index}
           renderItem={({ item, index }) =>
             <List
               dataHome={item}
